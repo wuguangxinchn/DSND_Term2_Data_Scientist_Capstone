@@ -15,23 +15,31 @@ This project has been devided into two phases:
 
 
 ## The Data
+
 The dataset we are using is `data\telematics_data.csv`, It was collected from huge number of real cars, and then has been aggregated in every hour (not the Raw Telematics data).   
 The data structure look like this:   
+| dd | day_hour | num_records | num_sessions | num_vins  |   
+| --- | --- | --- | --- | --- |   
+| 2017-12-28 | 5 | 36851 | 569 | 535 |   
+| 2017-12-28 | 6 | 80184 | 872 | 750 |  
+| 2017-12-28 | 7 | 36796 | 391 | 374 |  
+| 2017-12-28 | 9 | 1450 | 85 | 85 |  
+| 2017-12-28 | 10 | 20005 | 549 | 518 |  
 
-dd,day_hour,num_records,num_sessions,num_vins
-2017-12-28,5,36851,569,535
-2017-12-28,6,80184,872,750
-2017-12-28,7,36796,391,374
-2017-12-28,9,1450,85,85
-2017-12-28,10,20005,549,518
+## The Code 
 
+The main code is in `src/telematics_monitoring.ipynb`  
+Based on the results, I also restructured from the notebook into few python files `main.py`, `model.py` 
 
 ## Analysis process 
 
-SARIMAX is leveraged as Time Series Model to forecast the data status. Below is the overall procss in this project. 
-<img src="image/process.jpg" width="800"> 
+SARIMAX is leveraged as Time Series Model to forecast the data status. Below is the overall process in this project.   
+<img src="image/process.JPG" width="800"> 
 
 ## Model Fitting and Evaluation 
+
+You can find the details in `src/telematics_monitoring.ipynb`, or check the result in log files if you run the `main.py`  
+Below is a short summary:  
 * An automatic “grid-search” approach is used to choose parameters with lowest AIC
 * ARIMA(p,d,q)(P,D,Q)s alter depends on the data and period we choose, so we have to train it every time before forecast 
 * Right now we are using 1 month data to train, and forecast the data1 day ahead
@@ -40,17 +48,14 @@ SARIMAX is leveraged as Time Series Model to forecast the data status. Below is 
 ## Configuration
 
 1. The E-mail functionality, training data period, and thresholds of the model can be configured by editing the JSON file in `conf/config.json`
-2. The home directory of the application is defined in `main.py` under the variable `app_dir`, this should be changed to the applications root structure before running.
 
 ## Running
 
-The submission scripts also have hard coded application directories, so make sure to edit those before you run them.
-
-After making the necessary configurations you can run the application by using `python src/telematics_monitoring.py`.
+After making the necessary configurations, you can run the `src/telematics_monitoring.ipynb`, or the `src/main.py`.
 
 ## Scheduling
 
-In this project, I read data from a csv file. But in real case I need to run few queries to ingest data from external data sources. In that case, I have to update the `data acquire` part in the program, and schedule regular jobs to run it every day.  
+In this project I read data from a csv file. But in real case I run few queries to ingest data from external data sources, for that I have to update the `data acquire` part in the program, and schedule regular jobs to run it every day.  
 
 ## Conclusion
 
