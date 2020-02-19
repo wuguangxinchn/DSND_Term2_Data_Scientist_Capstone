@@ -34,7 +34,8 @@ Based on the results, I also restructured from the notebook into few python file
 ## Analysis process 
 
 SARIMAX is leveraged as Time Series Model to forecast the data status. Below is the overall process in this project.   
-<img src="image/process.JPG" width="800"> 
+
+<img src="image/process.JPG" width="600"> 
 
 ## Model Fitting and Evaluation 
 
